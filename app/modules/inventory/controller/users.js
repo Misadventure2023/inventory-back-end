@@ -35,4 +35,22 @@ const createUser = (req, res) => {
     })
 }
 
-module.exports = { getUsers, createUser }
+const deleteUser = (req, res) => {
+    console.log(req.query);
+    const id = req.query.id
+    model.deleteUser(id, (result, err) => {
+        if (err) {
+            res.status(403).json({
+                result: 'error',
+                message: err,
+            })
+        } else {
+            res.status(200).json({
+                result: 'success',
+                message: result
+            })
+        }
+    })
+}
+
+module.exports = { getUsers, createUser, deleteUser }
