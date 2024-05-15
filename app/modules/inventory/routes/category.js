@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { getUsers, createUser, deleteUser, updateUser, searchUser } = require('../controller/users') //call test controller and functions
+const { getCategory, createCategory, deleteCategory, updateCategory, searchCategory } = require('../controller/category') //call category controller and functions
 
 //set routes and functions
 //        .get/post/put/delete    
@@ -14,14 +14,14 @@ const { getUsers, createUser, deleteUser, updateUser, searchUser } = require('..
 // router.get('/', fetch)
 
 //================
-// Users Routes
+// Category Routes
 //================
 
-router.get('/get', getUsers)
-router.post('/create', createUser)
-router.delete('/delete', deleteUser)
-router.post('/update', updateUser)
-router.post('/search', searchUser)
+router.get('/get', getCategory)
+router.post('/create', createCategory)
+router.delete('/delete', deleteCategory)
+router.post('/update', updateCategory)
+router.post('/search', searchCategory)
 
 module.exports = router;
 

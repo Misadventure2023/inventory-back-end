@@ -4,8 +4,8 @@ const config = require('../config/config')
 const mysql = require('mysql2/promise');
 
 module.exports = { 
-    getUsers: (callback) => {
-        let query = `SELECT id, first_name, last_name, user_name, email, date_created, access_level, status FROM users`
+    getCategory: (callback) => {
+        let query = `SELECT * FROM category_list`
             
         db.query(query, (err, result) => { //excecute query
             if (err) return callback("", err)
@@ -13,19 +13,17 @@ module.exports = {
             return callback(result, "")
         })
     }, 
-    createUser: (payload, req, res, callback) => {
+    createCategory: (req, res, callback) => {
+        const payload = req.body
         let query = `INSERT INTO 
-                        users 
+                        category_list 
                     VALUES 
                     (
                         NULL,
-                        '${payload.firstName}',
-                        '${payload.lastName}',
-                        '${payload.userName}',
-                        '${payload.email}',
-                        '${payload.password}',
+                        '${payload.category}',
+                        '${payload.status}',
                         '${payload.dateCreated}',
-                        '${payload.accessLevel}',
+                        '${payload.createdBy}',
                         '1'                        
                     )`
                     
@@ -35,8 +33,8 @@ module.exports = {
             return callback(result, "")
         })
     },
-    deleteUser: (id, callback) => {
-        let query = `DELETE from users WHERE id="${id}"`
+    deleteCategory: (id, callback) => {
+        let query = `DELETE from category_list WHERE id="${id}"`
 
         db.query(query, (err, result) => {
             if (err) return callback("", err)
@@ -44,24 +42,20 @@ module.exports = {
             return callback(result, err)
         })
     },
-    updateUser: (req, res, callback) => {
+    updateCategory: (req, res, callback) => {
         
-        async function updateUser() {
-            const connection = await mysql.createConnection(config.db);//create Db Connection
+        async function updateCategory() {
+            const connection = await mysql.createConnection(config.db); //create Db Connection
             await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
             await connection.beginTransaction(); // Start all query    
             try {
-                let query;
                 let row = [ //rows use for query values
-                    req.body.first_name,
-                    req.body.last_name,
-                    req.body.user_name,
-                    req.body.email,
-                    req.body.access_level,
+                    req.body.category,
+                    req.body.status,
                     req.body.id
                 ]
 
-                query = `UPDATE users SET first_name=?, last_name=?, user_name=?, email=?, access_level=? WHERE id=?`    
+                let query = `UPDATE category_list SET category=?, status=? WHERE id=?`    
                 await connection.execute(
                     query,
                     row
@@ -81,28 +75,20 @@ module.exports = {
             }
         }
         (async function addExecute() {
-            await updateUser()
+            await updateCategory()
         })();
     },
-    searchUser: (search, callback) => {
+    searchCategory: (search, callback) => {
         
         let query = `SELECT 
-                        id, 
-                        first_name, 
-                        last_name, 
-                        user_name, 
-                        email, 
-                        access_level, 
-                        status 
+                        *
                     FROM 
-                        users
+                        category_list
                     WHERE
-                        first_name LIKE '%${search}%' OR
-                        last_name LIKE '%${search}%' OR
-                        user_name LIKE '%${search}%' OR
-                        email LIKE '%${search}%' OR
-                        date_created LIKE '%${search}%' OR
-                        access_level LIKE '%${search}%'
+                        category='${search}' OR
+                        status='${search}' OR
+                        date_created='${search}' OR
+                        created_by='${search}'
                     `
             
         db.query(query, (err, result) => { //excecute query

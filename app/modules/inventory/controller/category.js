@@ -1,7 +1,7 @@
-const model = require('../model/users')
+const model = require('../model/category')
 
-const getUsers = (req, res) => {
-    model.getUsers((result, err) => {
+const getCategory = (req, res) => {
+    model.getCategory((result, err) => {
         if (!result) {
             res.status(403).json({
                 success: false, 
@@ -9,7 +9,6 @@ const getUsers = (req, res) => {
                 data: err
             });
         } else {
-            //return success upon matched account
             res.status(200).json({
                 success: true, 
                 server_response: `ok`,
@@ -18,10 +17,8 @@ const getUsers = (req, res) => {
         }
     })
 }
-const createUser = (req, res) => {
-    console.log(req.body);
-    const payload = req.body
-    model.createUser(payload, req, res, (result, err) => {
+const createCategory = (req, res) => {
+    model.createCategory(req, res, (result, err) => {
         if (!result) {
             res.status(403).json({
                 success: false, 
@@ -29,7 +26,6 @@ const createUser = (req, res) => {
                 data: err
             });
         } else {
-            //return success upon matched account
             res.status(200).json({
                 success: true, 
                 server_response: `ok`,
@@ -39,10 +35,9 @@ const createUser = (req, res) => {
     })
 }
 
-const deleteUser = (req, res) => {
-    console.log(req.query);
+const deleteCategory = (req, res) => {
     const id = req.query.id
-    model.deleteUser(id, (result, err) => {
+    model.deleteCategory(id, (result, err) => {
         if (err) {
             res.status(403).json({
                 success: false, 
@@ -59,8 +54,8 @@ const deleteUser = (req, res) => {
     })
 }
 
-const updateUser = (req, res) => {
-    model.updateUser(req, res, (result, err) => {
+const updateCategory = (req, res) => {
+    model.updateCategory(req, res, (result, err) => {
         if (err) return res.status(403).json({
             success: false, 
             server_response: `ERROR: something went wrong`,
@@ -77,8 +72,9 @@ const updateUser = (req, res) => {
     })
 }
 
-const searchUser = (req, res) => {
-    model.searchUser(req.body.search, (result, err) => {
+const searchCategory = (req, res) => {
+    const searchKey = req.body.search
+    model.searchCategory(searchKey, (result, err) => {
         if (err) return res.status(403).json({
             success: false, 
             server_response: `ERROR: something went wrong`,
@@ -95,4 +91,4 @@ const searchUser = (req, res) => {
     })
 }
 
-module.exports = { getUsers, createUser, deleteUser, updateUser, searchUser }
+module.exports = { getCategory, createCategory, deleteCategory, updateCategory, searchCategory }
