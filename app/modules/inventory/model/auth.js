@@ -6,7 +6,7 @@ module.exports = {
             SELECT 
                 *
             FROM 
-                users
+                inventory_db_vv52.users
             WHERE 
                 user_name="${userInput.username}"
             AND 

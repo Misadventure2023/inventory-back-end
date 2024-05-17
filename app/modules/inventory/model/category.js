@@ -9,9 +9,7 @@ module.exports = {
                         u.last_name,
                         u.user_name,
                         u.email,
-                        u.access_level,
-                        u.date_created,
-                        u.status
+                        u.access_level
                     FROM 
                         inventory_db_vv52.category_list cl
                     JOIN 
@@ -89,10 +87,11 @@ module.exports = {
                         inventory_db_vv52.category_list 
                     SET 
                         category='${payload.category}', 
-                        status='${payload.category}' 
+                        status=${payload.status},
+                        date_modified='${payload.date_modified}' 
                     WHERE 
                         id=${payload.id}`    
-
+        console.log({query});
         try {
             const result = await sql.unsafe(query);
             console.log(result);
