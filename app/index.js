@@ -38,6 +38,160 @@ module.exports = app => {
      * ...thus for this instance the __dirname would be equal to the full path
      * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
      */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
+    /**
+     * We now read try to read the directory where the modules are. Refer to
+     * the comments below for some notes.
+     * 
+     * path.join() - basically just concatenates directory strings.
+     * 
+     * __dirname - is a special NodeJS variable that resolves to the current 
+     * working directory. https://www.computerhope.com/jargon/c/currentd.htm
+     * ...thus for this instance the __dirname would be equal to the full path
+     * of the 'app' folder (ex. C:\Users\PC_Name\Web\express\app)
+     */
     fs.readdir(path.join(__dirname, modulesDir), (err, modules) => {
         if (err) throw err;
 
