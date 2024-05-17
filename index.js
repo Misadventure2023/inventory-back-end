@@ -11,12 +11,24 @@ const ORIGIN = process.env.ORIGIN
 
 var corsOptions = {
     origin: ORIGIN,
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }
 
-app.use(cors(corsOptions))
+console.log(corsOptions)
+
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use((err, req, res, next) => {
+    if (err) {
+        console.error('CORS error:', err);
+        res.status(500).send('CORS error');
+    } else {
+        next();
+    }
+});
 
 require('./app')(app)
 
