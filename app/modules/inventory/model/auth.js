@@ -1,7 +1,7 @@
-const db = require('../../../lib/database')()
+const sql = require('../../../lib/postgreDB')()
 
 module.exports = { 
-    login: (userInput, callback) => {
+    login: async (userInput, callback) => {
         let query = `
             SELECT 
                 *
@@ -15,14 +15,13 @@ module.exports = {
                 status=1
             `
             
-        db.query(query, (err, result) => { //excecute query
-            if (err) {
-                //callback an error
-                callback("", err)
-            } else {
-                //callback result match found and log in
-                callback(result, "")
-            }
-        })
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
     } 
 }

@@ -1,8 +1,4 @@
-
-// const db = require('../../../lib/database')()
 const sql = require('../../../lib/postgreDB')()
-const config = require('../config/config')
-const mysql = require('mysql2/promise');
 
 module.exports = { 
     getCategory: async (callback) => {
