@@ -7,19 +7,21 @@ const numeral = require('numeral');
 const app = express()
 
 const PORT = process.env.PORT 
+const ORIGIN = process.env.ORIGIN 
 
 var corsOptions = {
-    origin: `http://localhost:${PORT}`
+    origin: ORIGIN,
+    optionsSuccessStatus: 200
 }
 
-app.use(cors())
-app.use(express.json(corsOptions))
+app.use(cors(corsOptions))
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 require('./app')(app)
 
 app.listen(PORT, () => {
-    console.log(`ExpressJS server listening to port ${PORT}`);
+    console.log(`ExpressJS server listening to port ${PORT} ${ORIGIN}`);
 });
 
 setInterval(()=>{
