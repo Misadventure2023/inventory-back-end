@@ -8,12 +8,12 @@ const app = express()
 
 const PORT = process.env.PORT 
 
-// var corsOptions = {
-//     origin: `http://localhost:${PORT}`
-// }
+var corsOptions = {
+    origin: `http://localhost:${PORT}`
+}
 
 app.use(cors())
-app.use(express.json())
+app.use(express.json(corsOptions))
 app.use(express.urlencoded({ extended: true }))
 
 require('./app')(app)

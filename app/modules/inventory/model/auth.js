@@ -8,9 +8,9 @@ module.exports = {
             FROM 
                 inventory_db_vv52.users
             WHERE 
-                user_name="${userInput.username}"
+                user_name='${userInput.username}'
             AND 
-                password="${userInput.password}"
+                password='${userInput.password}'
             AND
                 status=1
             `

@@ -2,7 +2,7 @@ const sql = require('../../../lib/postgreDB')()
 
 module.exports = { 
     getUsers: async (callback) => {
-        let query = `SELECT id, first_name, last_name, user_name, email, date_created, access_level FROM inventory_db_vv52.users`
+        let query = `SELECT id, first_name, last_name, user_name, email, date_created, access_level, status FROM inventory_db_vv52.users`
 
         console.log({query});
 
@@ -78,7 +78,7 @@ module.exports = {
                 user_name='${payload.user_name}', 
                 email='${payload.email}',
                 access_level='${payload.access_level}',
-                status=${Number(payload.status)}
+                status=${payload.status}
             WHERE 
                 id=${payload.id}`   
         
