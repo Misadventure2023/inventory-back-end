@@ -19,7 +19,7 @@ module.exports = app => {
      * Load the bootstrapper for the app. What this does is basically
      * load all the necessary configurations essential to your application.
      */
-    require('./core/boot')(app);
+    // require('./core/boot')(app);
 
     /**
      * A variable to identify the directory of where the application modules

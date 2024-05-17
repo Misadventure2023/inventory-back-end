@@ -1,90 +1,104 @@
 
 const db = require('../../../lib/database')()
+const sql = require('../../../lib/postgreDB')()
 const config = require('../config/config')
 const mysql = require('mysql2/promise');
 
 module.exports = { 
-    getUsers: (callback) => {
-        let query = `SELECT id, first_name, last_name, user_name, email, date_created, access_level, status FROM users`
-            
-        db.query(query, (err, result) => { //excecute query
-            if (err) return callback("", err)
-            
-            return callback(result, "")
-        })
+    getUsers: async (callback) => {
+        let query = `SELECT id, first_name, last_name, user_name, email, date_created, access_level, status FROM inventory_db_vv52.users`
+
+        console.log({query});
+
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
+
     }, 
-    createUser: (payload, req, res, callback) => {
-        let query = `INSERT INTO 
-                        users 
-                    VALUES 
+    createUser: async (payload, req, res, callback) => {
+        let query = `
+                INSERT INTO 
+                    inventory_db_vv52.users 
                     (
-                        NULL,
-                        '${payload.firstName}',
-                        '${payload.lastName}',
-                        '${payload.userName}',
+                        "first_name", 
+                        "last_name", 
+                        "user_name", 
+                        "email", 
+                        "password", 
+                        "date_created", 
+                        "access_level", 
+                        "status"
+                    )
+                VALUES 
+                    (
+                        '${payload.first_name}',
+                        '${payload.last_name}',
+                        '${payload.user_name}',
                         '${payload.email}',
                         '${payload.password}',
-                        '${payload.dateCreated}',
-                        '${payload.accessLevel}',
-                        '1'                        
+                        '${payload.date_created}',
+                        '${payload.access_level}',
+                        1                        
                     )`
-                    
-        db.query(query, (err, result) => { //excecute query
-            if (err) return callback("", err)
 
-            return callback(result, "")
-        })
-    },
-    deleteUser: (id, callback) => {
-        let query = `DELETE from users WHERE id="${id}"`
+        console.log({query});
 
-        db.query(query, (err, result) => {
-            if (err) return callback("", err)
-
-            return callback(result, err)
-        })
-    },
-    updateUser: (req, res, callback) => {
-        
-        async function updateUser() {
-            const connection = await mysql.createConnection(config.db);//create Db Connection
-            await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
-            await connection.beginTransaction(); // Start all query    
-            try {
-                let query;
-                let row = [ //rows use for query values
-                    req.body.first_name,
-                    req.body.last_name,
-                    req.body.user_name,
-                    req.body.email,
-                    req.body.access_level,
-                    req.body.id
-                ]
-
-                query = `UPDATE users SET first_name=?, last_name=?, user_name=?, email=?, access_level=? WHERE id=?`    
-                await connection.execute(
-                    query,
-                    row
-                )
-
-                //Execute All Queries
-                await connection.commit();
-                //close Connection
-                connection.end()
-                // // return product_id to callback
-                callback("Status: Success", "")
-            } catch (err) {
-                console.error(`Error occurred while Updating user: ${err.message}`, err);
-                //Disregard all inserted rows in case of error
-                connection.rollback();
-                callback("Error on Uploading", err.message)
-            }
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
         }
-        (async function addExecute() {
-            await updateUser()
-        })();
     },
-    searchUser: (search, callback) => {
+    deleteUser: async (id, callback) => {
+        let query = `DELETE FROM inventory_db_vv52.users WHERE id=${id}`
+
+        console.log({query});
+
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
+    },
+    updateUser: async (req, res, callback) => {
+        const payload = req.body
+        const query = `
+            UPDATE 
+            inventory_db_vv52.users 
+            SET
+                first_name='${payload.first_name}', 
+                last_name='${payload.last_name}', 
+                user_name='${payload.user_name}', 
+                email='${payload.email}',
+                access_level='${payload.access_level}',
+                status=${payload.status}
+            WHERE 
+                id=${payload.id}`   
+        
+        console.log({query});
+
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
+
+    },
+    searchUser: async (search, callback) => {
         
         let query = `SELECT 
                         id, 
@@ -95,7 +109,7 @@ module.exports = {
                         access_level, 
                         status 
                     FROM 
-                        users
+                        inventory_db_vv52.users
                     WHERE
                         first_name LIKE '%${search}%' OR
                         last_name LIKE '%${search}%' OR
@@ -104,11 +118,16 @@ module.exports = {
                         date_created LIKE '%${search}%' OR
                         access_level LIKE '%${search}%'
                     `
-            
-        db.query(query, (err, result) => { //excecute query
-            if (err) return callback("", err)
-            
-            return callback(result, "")
-        })
+
+        console.log({query});
+
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
     }
 }

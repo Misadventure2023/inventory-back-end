@@ -1,100 +1,162 @@
 
-const db = require('../../../lib/database')()
+// const db = require('../../../lib/database')()
+const sql = require('../../../lib/postgreDB')()
 const config = require('../config/config')
 const mysql = require('mysql2/promise');
 
 module.exports = { 
-    getCategory: (callback) => {
-        let query = `SELECT * FROM category_list`
-            
-        db.query(query, (err, result) => { //excecute query
-            if (err) return callback("", err)
-            
-            return callback(result, "")
-        })
+    getCategory: async (callback) => {
+        let query = `
+                    SELECT 
+                        cl.*, 
+                        u.first_name,
+                        u.last_name,
+                        u.user_name,
+                        u.email,
+                        u.access_level,
+                        u.date_created,
+                        u.status
+                    FROM 
+                        inventory_db_vv52.category_list cl
+                    JOIN 
+                        inventory_db_vv52.users u
+                    ON 
+                        cl.created_by = u.id
+                        `
+
+        console.log({query});
+
+        try {
+            const result = await sql.unsafe(query);
+            // console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            if (err) {
+                
+            }
+            callback(null, err);
+        }
     }, 
-    createCategory: (req, res, callback) => {
+    createCategory: async (req, res, callback) => {
         const payload = req.body
         let query = `INSERT INTO 
-                        category_list 
+                        inventory_db_vv52.category_list 
+                    (
+                        category,
+                        status,
+                        date_created,
+                        date_modified,
+                        created_by
+                    )
                     VALUES 
                     (
-                        NULL,
                         '${payload.category}',
                         '${payload.status}',
-                        '${payload.dateCreated}',
-                        '${payload.createdBy}',
-                        '1'                        
+                        '${payload.date_created}',
+                        '${payload.date_modified}',
+                        '${payload.created_by}'               
                     )`
-                    
-        db.query(query, (err, result) => { //excecute query
-            if (err) return callback("", err)
 
-            return callback(result, "")
-        })
-    },
-    deleteCategory: (id, callback) => {
-        let query = `DELETE from category_list WHERE id="${id}"`
-
-        db.query(query, (err, result) => {
-            if (err) return callback("", err)
-
-            return callback(result, err)
-        })
-    },
-    updateCategory: (req, res, callback) => {
-        
-        async function updateCategory() {
-            const connection = await mysql.createConnection(config.db); //create Db Connection
-            await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
-            await connection.beginTransaction(); // Start all query    
-            try {
-                let row = [ //rows use for query values
-                    req.body.category,
-                    req.body.status,
-                    req.body.id
-                ]
-
-                let query = `UPDATE category_list SET category=?, status=? WHERE id=?`    
-                await connection.execute(
-                    query,
-                    row
-                )
-
-                //Execute All Queries
-                await connection.commit();
-                //close Connection
-                connection.end()
-                // // return product_id to callback
-                callback("Status: Success", "")
-            } catch (err) {
-                console.error(`Error occurred while Updating user: ${err.message}`, err);
-                //Disregard all inserted rows in case of error
-                connection.rollback();
-                callback("Error on Uploading", err.message)
-            }
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
         }
-        (async function addExecute() {
-            await updateCategory()
-        })();
     },
-    searchCategory: (search, callback) => {
-        
-        let query = `SELECT 
-                        *
-                    FROM 
-                        category_list
-                    WHERE
-                        category='${search}' OR
-                        status='${search}' OR
-                        date_created='${search}' OR
-                        created_by='${search}'
-                    `
-            
-        db.query(query, (err, result) => { //excecute query
-            if (err) return callback("", err)
-            
-            return callback(result, "")
-        })
+    deleteCategory: async (id, callback) => {
+        let query = `
+                DELETE 
+                FROM    
+                    inventory_db_vv52.category_list 
+                WHERE 
+                    id=${id}`
+
+        console.log("delete", {query});
+
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
+    },
+    updateCategory: async (req, res, callback) => {
+        const payload = req.body
+
+        let query = `UPDATE 
+                        inventory_db_vv52.category_list 
+                    SET 
+                        category='${payload.category}', 
+                        status='${payload.category}' 
+                    WHERE 
+                        id=${payload.id}`    
+
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
+    },
+    searchCategory: async (search, callback) => {
+        let query = `SELECT  
+                cl.*,
+                u.first_name,
+                u.last_name,
+                u.user_name,
+                u.email,
+                u.access_level,
+                u.date_created,
+                u.status
+            FROM 
+                inventory_db_vv52.category_list cl
+            JOIN
+                inventory_db_vv52.users u
+            ON
+                cl.created_by = u.id
+            WHERE
+                cl.category LIKE '%${search}%' OR
+                CAST(cl.status AS TEXT) LIKE '%${search}%' OR
+                cl.date_created LIKE '%${search}%' OR
+                cl.date_modified LIKE '%${search}%' OR
+                CAST(cl.created_by AS TEXT) LIKE '%${search}%'`
+                
+        // let query = `SELECT 
+        //                 cl.*, 
+        //                 u.first_name,
+        //                 u.last_name,
+        //                 u.user_name,
+        //                 u.email,
+        //                 u.access_level,
+        //                 u.date_created,
+        //                 u.status
+        //             FROM 
+        //                 inventory_db_vv52.category_list cl
+        //             JOIN 
+        //                 inventory_db_vv52.users u
+        //             ON 
+        //                 cl.created_by = u.id
+        //             WHERE
+        //                 cl.category LIKE '%${search}%' OR
+        //                 CAST(cl.status AS TEXT) LIKE '%${search}%' OR
+        //                 cl.date_created LIKE '%${search}%' OR
+        //                 cl.date_modified LIKE '%${search}%' OR
+        //                 CAST(cl.created_by AS TEXT) LIKE '%${search}%'`
+        try {
+            const result = await sql.unsafe(query);
+            console.log(result);
+            callback(result, null);
+        } catch (err) {
+            console.error(err);
+            callback(null, err);
+        }
     }
 }
