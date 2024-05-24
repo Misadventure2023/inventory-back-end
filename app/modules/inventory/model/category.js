@@ -22,13 +22,10 @@ module.exports = {
 
         try {
             const result = await sql.unsafe(query);
-            // console.log(result);
+            console.log(result);
             callback(result, null);
         } catch (err) {
             console.error(err);
-            if (err) {
-                
-            }
             callback(null, err);
         }
     }, 
